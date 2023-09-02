@@ -1,98 +1,116 @@
-import { FormControl, FormLabel, Input, InputGroup, InputRightElement, VStack } from '@chakra-ui/react'
+import { FormControl, FormLabel, Input, VStack } from '@chakra-ui/react'
 import { Button } from '@chakra-ui/react';
-import React from 'react'
+import React, { useState } from 'react'
+import { Password } from '../Password/Password';
+import axios from 'axios';
 
-const Signup = () => {
-  const [username, setUsername] = React.useState('');
-  const [email, setEmail] = React.useState('');
-  const [picture, setPicture] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  const [passwordConfirm, setPasswordConfirm] = React.useState('');
-  const [showPassword, setSshowPassword] = React.useState(false);
-  const [showPasswordConfirm, setShowPasswordConfirm] = React.useState(false);
+const convertBase64 = (file) => {
+  return new Promise((resolve, reject) => {
+    const fileReader = new FileReader();
+    fileReader.readAsDataURL(file);
 
-  const postDetails = (picture) => { };
-  const submitHandler = () => {
+    fileReader.onload = () => {
+      resolve(fileReader.result);
+    };
+
+    fileReader.onerror = (error) => {
+      reject(error);
+    };
+  });
+};
+
+const Signup = ({ onFinish }) => {
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [picture, setPicture] = useState();
+  const [password, setPassword] = useState('');
+  const [passwordConfirm, setPasswordConfirm] = useState('');
+
+  const submitHandler = async () => {
+    if (!username || !email || !password || !passwordConfirm) {
+      alert('Please enter all fields');
+      return;
+    }
+
+    if (password !== passwordConfirm) {
+      alert('Passwords do not match');
+      return;
+    }
+
+    if (!email.includes('@')) {
+      alert('Please enter a valid email');
+      return;
+    }
+
+    const base64Picture = picture ? await convertBase64(picture) : null;
+
     const data = {
       username,
       email,
-      picture,
-      password,
-      passwordConfirm
+      picture: base64Picture,
+      password
     };
-    console.log(data);
+
+    try {
+      await axios.post("/api/auth/register", data);
+      console.log("success");
+      alert("User created successfully");
+      onFinish();
+    }
+    catch (e) {
+      console.log(e);
+      if (e.response.status === 409) {
+        alert("User exists")
+      }
+      else {
+        alert("Unexpected error");
+      }
+    }
   };
 
-  return <VStack spacing="5px">
-    <FormControl id="user-name" isRequired>
-      <FormLabel>User Name</FormLabel>
-      <Input
-        placeholder='Enter your user name'
-        onChange={(e) => setUsername(e.target.value)}
-      />
-    </FormControl>
-
-    <FormControl id="Email" isRequired>
-      <FormLabel>Email</FormLabel>
-      <Input
-        placeholder='Enter your email'
-        onChange={(e) => setEmail(e.target.value)}
-      />
-    </FormControl>
-
-    <FormControl id="Password" isRequired>
-      <FormLabel>Password</FormLabel>
-      <InputGroup>
+  return (
+    <VStack spacing="5px">
+      <FormControl id="user-name" isRequired>
+        <FormLabel>User Name</FormLabel>
         <Input
-          type={showPassword ? "text" : "password"}
-          placeholder='Enter your password'
-          onChange={(e) => setPassword(e.target.value)}
+          placeholder='Enter your user name'
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
         />
-        <InputRightElement width="4.5rem">
-          <Button h="1.75rem" size="sm" onClick={() => setSshowPassword(!showPassword)}>
-            {showPassword ? "Hide" : "Show"}
-          </Button>
-        </InputRightElement>
-      </InputGroup>
-    </FormControl>
+      </FormControl>
 
-    <FormControl id="Password" isRequired>
-      <FormLabel>Confirm Password</FormLabel>
-      <InputGroup>
+      <FormControl id="Email" isRequired>
+        <FormLabel>Email</FormLabel>
         <Input
-          type={showPasswordConfirm ? "text" : "password"}
-          placeholder='Confirm Password'
-          onChange={(e) => setPasswordConfirm(e.target.value)}
+          placeholder='Enter your email'
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
-        <InputRightElement width="4.5rem">
-          <Button h="1.75rem" size="sm" onClick={() => setShowPasswordConfirm(!showPasswordConfirm)}>
-            {showPasswordConfirm ? "Hide" : "Show"}
-          </Button>
-        </InputRightElement>
-      </InputGroup>
-    </FormControl>
+      </FormControl>
 
-    <FormControl id="picture">
-      <FormLabel>Upload your Profile Picture</FormLabel>
-      <Input
-        type='file'
-        p={1.5}
-        accept='image/*'
-        onChange={(e) => postDetails(e.target.files[0], "picture")}
-      />
-    </FormControl>
+      <Password password={password} setPassword={setPassword} />
+      <Password password={passwordConfirm} setPassword={setPasswordConfirm} text="Confirm password" />
 
-    <Button
-      colorScheme="purple"
-      width="100%"
-      style={{ marginTop: 15 }}
-      onClick={submitHandler}
-    >
-      Sign Up
-    </Button>
+      <FormControl id="picture">
+        <FormLabel>Upload your Profile Picture</FormLabel>
+        <Input
+          type='file'
+          p={1.5}
+          accept='image/*'
+          onChange={(e) => setPicture(e.target.files[0])}
+        />
+      </FormControl>
 
-  </VStack>
-
+      <Button
+        colorScheme="purple"
+        width="100%"
+        style={{ marginTop: 15 }}
+        onClick={submitHandler}
+      >
+        Sign Up
+      </Button>
+    </VStack>
+  );
 }
 
 export default Signup

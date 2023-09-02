@@ -1,9 +1,11 @@
 import { Container, Box, Text, Tabs, TabList, TabPanel, TabPanels, Tab, } from '@chakra-ui/react'
-import React from 'react'
+import React, { useState } from 'react'
 import Login from '../components/Authentication/Login';
 import Signup from '../components/Authentication/Signup';
 
-const HomePage = () => {
+const AuthPage = () => {
+  const [tabIndex, setTabIndex] = useState(0)
+
   return (
     <Container maxW="xl" centerContent>
       <Box
@@ -16,10 +18,10 @@ const HomePage = () => {
         borderRadius="lg"
         borderWidth="1px"
       >
-        <Text fontSize="4xl" fontFamily="Work sans" color="black">Kits-Chat-App </Text>
+        <Text fontSize="4xl" fontFamily="Work sans" color="black">Kits-Chat-App</Text>
       </Box>
       <Box bg="white" w="100%" p={4} borderRadius="lg" color="black" borderWidth="1px">
-        <Tabs variant='soft-rounded' colorScheme='purple'>
+        <Tabs index={tabIndex} onChange={setTabIndex} variant='soft-rounded' colorScheme='purple'>
           <TabList mb="1em">
             <Tab width="50%">Login</Tab>
             <Tab width="50%">Sign Up</Tab>
@@ -29,7 +31,7 @@ const HomePage = () => {
               <Login />
             </TabPanel>
             <TabPanel>
-              <Signup />
+              <Signup onFinish={() => setTabIndex(0)} />
             </TabPanel>
           </TabPanels>
         </Tabs>
@@ -38,4 +40,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage
+export default AuthPage
