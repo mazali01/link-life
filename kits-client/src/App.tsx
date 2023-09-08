@@ -1,7 +1,9 @@
 import './App.css';
 import { Route, BrowserRouter, Navigate, Routes } from 'react-router-dom';
 import AuthPage from './Pages/AuthPage';
-import HomePage from './Pages/HomePage';
+import FeedPage from './Pages/FeedPage';
+import UserPage from './Pages/UserPage';
+import AppOutlet from './Pages/AppOutlet';
 
 function App() {
   return (
@@ -9,8 +11,11 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/auth' element={<AuthPage />} />
-          <Route path="/home" element={<HomePage />} />
-          <Route path="*" element={<Navigate to="/auth" />} />
+          <Route path="/" element={<AppOutlet />}>
+            <Route path="/" element={<FeedPage />} />
+            <Route path="/:encodedEmail" element={<UserPage />} />
+          </Route>
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </BrowserRouter>
     </div>

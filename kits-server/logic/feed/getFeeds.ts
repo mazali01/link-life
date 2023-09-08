@@ -1,19 +1,30 @@
 import dayjs from "dayjs";
-import { getFakeFeeds } from "../../fake-data/fake";
-import { postDal } from "../../fileDB/post";
+import { PostModel, postDal } from "../../fileDB/post";
 import { userDal } from "../../fileDB/user";
 
 export const getFeeds = async (req, res) => {
-  const user = await userDal.findOne({ email: req.email });
+  const { only, likedBy } = req.query;
+
+  const user = await userDal.findOne({ email: only ?? req.email });
   if (!user) {
     res.status(404);
     res.send("Not found");
     return;
   }
 
-  const allOwnerIds = [user.email, ...user.friendsIds];
+  const allOwnerIds = [user.email];
 
-  const postsRaw = await postDal.findMatch(p => allOwnerIds.includes(p.ownerId));
+  if (!only) {
+    allOwnerIds.push(...user.followingIds);
+  }
+
+  const matchPost = (p: PostModel) => {
+    const isOwner = allOwnerIds.includes(p.ownerId);
+    const isLikedBy = likedBy ? p.likesIds.includes(likedBy) : true;
+    return isOwner && isLikedBy;
+  }
+
+  const postsRaw = await postDal.findMatch(matchPost);
 
   const posts = await Promise.all(postsRaw.map(async p => ({
     id: p.id,
@@ -29,8 +40,6 @@ export const getFeeds = async (req, res) => {
     })))).sort((a, b) => dayjs(a.createdAt).isBefore(b.createdAt) ? 1 : -1),
     likes: await userDal.findMatch(u => p.likesIds.includes(u.email)),
   })));
-
-  // const fakeData = await getFakeFeeds();
 
   res.send(posts.sort((a, b) => dayjs(a.createdAt).isBefore(b.createdAt) ? 1 : -1));
 };

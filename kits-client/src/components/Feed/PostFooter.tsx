@@ -9,28 +9,32 @@ import { useUpdateLikes } from '../../api/useUpdateLikes';
 import { useAddComment } from '../../api/useAddComment';
 import dayjs from 'dayjs';
 import { useDeleteComment } from '../../api/useDeleteComment';
+import { useNavigate } from 'react-router-dom';
+import { useQueryClient } from '@tanstack/react-query';
 
 
 interface PostFooterProps {
   likes: User[];
   comments: Comment[];
   postId: string;
-  refresh: () => Promise<void>;
 }
 
-export const PostFooter: FC<PostFooterProps> = ({ likes, comments, postId, refresh }) => {
+export const PostFooter: FC<PostFooterProps> = ({ likes, comments, postId }) => {
   const { user } = useUser();
   const updateLikes = useUpdateLikes();
   const addComment = useAddComment();
   const deleteComment = useDeleteComment();
   const [isCommentsExpanded, setIsCommentsExpanded] = React.useState(false);
   const [comment, setComment] = React.useState('');
+  const queryClient = useQueryClient();
+
+  const navigate = useNavigate();
 
   const myLike = likes.find(like => like.email === user?.email);
 
   const withRefresh = (fn: () => Promise<void>) => async () => {
     await fn();
-    await refresh();
+    await queryClient.invalidateQueries();
   }
 
   const iconProps = {
@@ -95,10 +99,21 @@ export const PostFooter: FC<PostFooterProps> = ({ likes, comments, postId, refre
           <DrawerBody display="flex" flexDirection="column" gap="1em">
             {comments.map((comment) => (
               <Box key={comment.id} display="flex" gap="0.5em">
-                <Avatar src={comment.user.picture} />
+                <Avatar
+                  cursor="pointer"
+                  onClick={() => navigate(`/${btoa(comment.user.email)}`)}
+                  src={comment.user.picture}
+                />
                 <Box backgroundColor="lightgray" padding="0.5em 1em" borderRadius="1em" display="flex" flexDirection="column">
                   <Box display="flex" gap="1em">
-                    <Text fontWeight="bold">{comment.user.name}</Text>
+                    <Text
+                      cursor="pointer"
+                      _hover={{ textDecoration: "underline" }}
+                      onClick={() => navigate(`/${btoa(comment.user.email)}`)}
+                      fontWeight="bold"
+                    >
+                      {comment.user.name}
+                    </Text>
                     <Text color="purple.600">{dayjs(comment.createdAt).fromNow()}</Text>
                     {comment.user.email === user?.email && (
                       <IconButton

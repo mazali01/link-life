@@ -16,7 +16,7 @@ export const register = async (req, res) => {
     email,
     password,
     picture,
-    friendsIds: [],
+    followingIds: [],
   });
 
   res.status(201);

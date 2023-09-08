@@ -12,7 +12,7 @@ export interface UserModel {
   name: string
   picture: string
   password: string
-  friendsIds: string[]
+  followingIds: string[]
 }
 
 class User extends Dal<UserModel> {

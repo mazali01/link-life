@@ -1,16 +1,17 @@
 import { Card, Box, Avatar, Textarea, Button, Input, Text } from "@chakra-ui/react";
 import { useRef, useState } from "react";
 import { FcAddImage } from "react-icons/fc";
-import { useFeed } from "../../api/useFeed";
 import { usePublishPost } from "../../api/usePublishPost";
 import { useUser } from "../../api/useUser";
 import { convertBase64 } from "../../utils/convertToBase64";
+import { useQueryClient } from "@tanstack/react-query";
+
 
 export const NewPost = () => {
   const { user } = useUser();
   const [postContent, setPostContent] = useState('');
   const [postPicture, setPostPicture] = useState<File>();
-  const { refresh } = useFeed();
+  const queryClient = useQueryClient();
 
   const publishPost = usePublishPost();
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -34,7 +35,7 @@ export const NewPost = () => {
             content: postContent,
             picture
           });
-          await refresh();
+          await queryClient.invalidateQueries();
           setPostContent('');
           setPostPicture(undefined);
         }} colorScheme="purple" flex="1">Post</Button>

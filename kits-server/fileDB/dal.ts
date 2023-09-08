@@ -21,6 +21,11 @@ export class Dal<T> {
     return item;
   }
 
+  async findMany(isMatch: (item: T) => boolean) {
+    const items = await this.persist.readJson<T[]>(this.dbPath);
+    const result = items.filter(isMatch);
+    return result;
+  }
 
   async updateOne(filter: (item: T) => boolean, getUpdatedItem: (oldItem: T) => T) {
     const items = await this.persist.readJson<T[]>(this.dbPath);
