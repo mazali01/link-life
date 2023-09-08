@@ -2,11 +2,11 @@ import { postDal } from "../../fileDB/post";
 import { v4 as uuidv4 } from 'uuid';
 
 export const addComment = async (req, res) => {
-  const userEmail = req.email;
+  const userEmail = req.payload.email;
   const postId = req.params.postId;
   const comment = req.body.comment;
 
-  await postDal.updateOne(p => p.id === postId, post => ({
+  await postDal.update(p => p.id === postId, post => ({
     ...post,
     comments: [...post.comments, {
       id: uuidv4(),

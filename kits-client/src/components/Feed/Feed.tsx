@@ -1,4 +1,4 @@
-import { Post } from "../../api/useFeed"
+import { Post } from "../../api/user/useFeed"
 import { Avatar, Box, Card, CardFooter, IconButton, Text } from "@chakra-ui/react"
 import { CardHeader } from "@chakra-ui/react"
 import { CardBody } from "@chakra-ui/react"
@@ -6,8 +6,8 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { PostFooter } from "./PostFooter";
 import { BsTrash } from 'react-icons/bs';
-import { useUser } from "../../api/useUser";
-import { useDeletePost } from "../../api/useDeletePost";
+import { useUser } from "../../api/user/useUser";
+import { useDeletePost } from "../../api/user/useDeletePost";
 import { useNavigate } from "react-router-dom";
 import { FC } from "react";
 import { useQueryClient } from "@tanstack/react-query";

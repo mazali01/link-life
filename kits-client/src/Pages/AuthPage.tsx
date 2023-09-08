@@ -2,6 +2,7 @@ import { Container, Box, Text, Tabs, TabList, TabPanel, TabPanels, Tab, } from '
 import React, { useState } from 'react'
 import Login from '../components/Authentication/Login';
 import Signup from '../components/Authentication/Signup';
+import AdminLogin from '../components/Authentication/AdminLogin';
 
 const AuthPage = () => {
   const [tabIndex, setTabIndex] = useState(0)
@@ -25,13 +26,17 @@ const AuthPage = () => {
           <TabList mb="1em">
             <Tab width="50%">Login</Tab>
             <Tab width="50%">Sign Up</Tab>
+            <Tab width="50%">Admin Login</Tab>
           </TabList>
           <TabPanels>
             <TabPanel>
               <Login />
             </TabPanel>
             <TabPanel>
-              <Signup onFinish={() => setTabIndex(0)} />z
+              <Signup onFinish={() => setTabIndex(0)} />
+            </TabPanel>
+            <TabPanel>
+              <AdminLogin />
             </TabPanel>
           </TabPanels>
         </Tabs>

@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import authRoutes from './routes/authRoutes';
 import userRoutes from './routes/userRoutes';
 import postRoutes from './routes/postRoutes';
+import adminRoutes from './routes/adminRoutes';
 
 const app = express();
 dotenv.config();
@@ -14,6 +15,7 @@ app.get('/', (req, res) => {
 app.use(express.json({ limit: "500mb" }));
 
 app.use('/api/auth', authRoutes);
+app.use('/api/admin', adminRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/post', postRoutes);
 

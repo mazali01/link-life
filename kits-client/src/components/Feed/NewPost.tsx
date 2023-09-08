@@ -1,8 +1,8 @@
 import { Card, Box, Avatar, Textarea, Button, Input, Text } from "@chakra-ui/react";
 import { useRef, useState } from "react";
 import { FcAddImage } from "react-icons/fc";
-import { usePublishPost } from "../../api/usePublishPost";
-import { useUser } from "../../api/useUser";
+import { usePublishPost } from "../../api/user/usePublishPost";
+import { useUser } from "../../api/user/useUser";
 import { convertBase64 } from "../../utils/convertToBase64";
 import { useQueryClient } from "@tanstack/react-query";
 

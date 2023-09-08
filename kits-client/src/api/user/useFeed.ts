@@ -1,4 +1,4 @@
-import { useHttpClient } from "./httpClient";
+import { useHttpClient } from "../httpClient";
 import { User } from "./useUser";
 import { useQuery } from "@tanstack/react-query";
 

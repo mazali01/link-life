@@ -1,12 +1,11 @@
 import { Flex, List, Box, Avatar, Image, Text, Button, Input } from '@chakra-ui/react'
 import { FC, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { User, useUser } from '../../api/useUser';
-import { useFollow } from '../../api/useFollow';
-import { FcAddImage } from 'react-icons/fc';
+import { User, useUser } from '../../api/user/useUser';
+import { useFollow } from '../../api/user/useFollow';
 import { convertBase64 } from '../../utils/convertToBase64';
 import { useQueryClient } from '@tanstack/react-query';
-import { useUpdatePicture } from '../../api/useUpdatePicture';
+import { useUpdatePicture } from '../../api/user/useUpdatePicture';
 
 interface BioProps {
   user: User;
@@ -29,7 +28,7 @@ export const Bio: FC<BioProps> = ({ user }) => {
 
   return (
     <Flex flexDirection="column" gap="1em" height="100%" width="100%">
-      <Image src={user.picture} alt="avatar" />
+      <Image src={user.picture || "https://exoffender.org/wp-content/uploads/2016/09/empty-profile.png"} alt="avatar" />
       {currentUser.email !== user.email && (isFollowing ?
         <Button onClick={() => toggle()} colorScheme="orange">Unfollow</Button> :
         <Button onClick={() => toggle()} colorScheme="blue">Follow</Button>)}

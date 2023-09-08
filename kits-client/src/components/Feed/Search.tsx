@@ -1,7 +1,7 @@
 import { Avatar, Box, Card, Flex, Select, Text, TextProps } from "@chakra-ui/react"
 import { FC, useState } from "react"
 import { useDebounce } from "@uidotdev/usehooks";
-import { SearchMethodType, useSearch } from "../../api/useSearch";
+import { SearchMethodType, useSearch } from "../../api/user/useSearch";
 //@ts-ignore
 import { Search as ChakraSearch } from 'chakra-ui-search';
 import { useNavigate } from "react-router-dom";

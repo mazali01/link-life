@@ -1,4 +1,4 @@
-import { useHttpClient } from "./httpClient";
+import { useHttpClient } from "../httpClient";
 import { useMutation } from "@tanstack/react-query";
 
 interface UpdateLikeParams {

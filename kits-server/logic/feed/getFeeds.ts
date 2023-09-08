@@ -5,7 +5,7 @@ import { userDal } from "../../fileDB/user";
 export const getFeeds = async (req, res) => {
   const { only, likedBy } = req.query;
 
-  const user = await userDal.findOne({ email: only ?? req.email });
+  const user = await userDal.findOne({ email: only ?? req.payload.email });
   if (!user) {
     res.status(404);
     res.send("Not found");

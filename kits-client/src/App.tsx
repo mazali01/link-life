@@ -4,6 +4,7 @@ import AuthPage from './Pages/AuthPage';
 import FeedPage from './Pages/FeedPage';
 import UserPage from './Pages/UserPage';
 import AppOutlet from './Pages/AppOutlet';
+import { AdminPage } from './Pages/AdminPage';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/auth' element={<AuthPage />} />
+          <Route path="/dashboard" element={<AdminPage />} />
           <Route path="/" element={<AppOutlet />}>
             <Route path="/" element={<FeedPage />} />
             <Route path="/:encodedEmail" element={<UserPage />} />

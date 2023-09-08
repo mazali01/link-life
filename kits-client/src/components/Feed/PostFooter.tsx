@@ -1,14 +1,14 @@
 import React, { FC } from 'react'
-import { Comment } from '../../api/useFeed';
+import { Comment } from '../../api/user/useFeed';
 import { AiOutlineHeart, AiOutlineComment, AiFillHeart } from "react-icons/ai";
 import { FiSend } from "react-icons/fi"
 import { BsTrash } from 'react-icons/bs';
 import { Avatar, Box, Container, Drawer, DrawerBody, DrawerContent, DrawerHeader, DrawerOverlay, IconButton, Text, Textarea } from '@chakra-ui/react';
-import { User, useUser } from '../../api/useUser';
-import { useUpdateLikes } from '../../api/useUpdateLikes';
-import { useAddComment } from '../../api/useAddComment';
+import { User, useUser } from '../../api/user/useUser';
+import { useUpdateLikes } from '../../api/user/useUpdateLikes';
+import { useAddComment } from '../../api/user/useAddComment';
 import dayjs from 'dayjs';
-import { useDeleteComment } from '../../api/useDeleteComment';
+import { useDeleteComment } from '../../api/user/useDeleteComment';
 import { useNavigate } from 'react-router-dom';
 import { useQueryClient } from '@tanstack/react-query';
 
@@ -101,21 +101,21 @@ export const PostFooter: FC<PostFooterProps> = ({ likes, comments, postId }) => 
               <Box key={comment.id} display="flex" gap="0.5em">
                 <Avatar
                   cursor="pointer"
-                  onClick={() => navigate(`/${btoa(comment.user.email)}`)}
-                  src={comment.user.picture}
+                  onClick={() => navigate(`/${btoa(comment.user?.email)}`)}
+                  src={comment.user?.picture}
                 />
                 <Box backgroundColor="lightgray" padding="0.5em 1em" borderRadius="1em" display="flex" flexDirection="column">
                   <Box display="flex" gap="1em">
                     <Text
                       cursor="pointer"
                       _hover={{ textDecoration: "underline" }}
-                      onClick={() => navigate(`/${btoa(comment.user.email)}`)}
+                      onClick={() => navigate(`/${btoa(comment.user?.email)}`)}
                       fontWeight="bold"
                     >
-                      {comment.user.name}
+                      {comment.user?.name}
                     </Text>
                     <Text color="purple.600">{dayjs(comment.createdAt).fromNow()}</Text>
-                    {comment.user.email === user?.email && (
+                    {comment.user?.email === user?.email && (
                       <IconButton
                         aria-label='Delete'
                         icon={<BsTrash />}

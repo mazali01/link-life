@@ -3,7 +3,7 @@ import { userDal } from "../../fileDB/user";
 export const toggleFollow = async (req, res) => {
   const { email } = req.query;
   const { otherEmail } = req.params;
-  const user = await userDal.findOne({ email: email ?? req.email });
+  const user = await userDal.findOne({ email: email ?? req.payload.email });
 
   if (!user) {
     res.status(404);
@@ -19,7 +19,7 @@ export const toggleFollow = async (req, res) => {
     user.followingIds.push(otherEmail);
   }
 
-  await userDal.updateOne(_ => _.email === user.email, oldUser => ({
+  await userDal.update(_ => _.email === user.email, oldUser => ({
     ...oldUser,
     followingIds: user.followingIds,
   }));

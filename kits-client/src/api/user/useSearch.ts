@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { useHttpClient } from "./httpClient";
+import { useHttpClient } from "../httpClient";
 import { User } from "./useUser";
 
 export type SearchMethodType = "prefix" | "contains" | "suffix";

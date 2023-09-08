@@ -27,7 +27,7 @@ export class Dal<T> {
     return result;
   }
 
-  async updateOne(filter: (item: T) => boolean, getUpdatedItem: (oldItem: T) => T) {
+  async update(filter: (item: T) => boolean, getUpdatedItem: (oldItem: T) => T) {
     const items = await this.persist.readJson<T[]>(this.dbPath);
 
     const updatedItems = items.map(item => filter(item) ? getUpdatedItem(item) : item);

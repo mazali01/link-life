@@ -1,5 +1,5 @@
-import { useHttpClient } from "./httpClient";
 import { useMutation } from "@tanstack/react-query";
+import { useHttpClient } from "../httpClient";
 
 interface DeletePostParams {
   postId: string;

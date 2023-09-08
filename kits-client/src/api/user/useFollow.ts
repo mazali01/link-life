@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { useHttpClient } from "./httpClient";
+import { useHttpClient } from "../httpClient";
 
 export const useFollow = (otherUserId: string) => {
   const httpClient = useHttpClient();

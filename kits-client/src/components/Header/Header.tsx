@@ -2,14 +2,10 @@ import { Avatar, Button, Container, Flex, Image, Text } from '@chakra-ui/react'
 import { Search } from '../Feed/Search'
 import logoImg from '/logo.png'
 import { useNavigate } from 'react-router-dom'
-import { useUser } from '../../api/useUser'
+import { useUser } from '../../api/user/useUser'
 
 export const Header = () => {
   const navigate = useNavigate();
-  const logout = () => {
-    localStorage.removeItem('token')
-    navigate('/auth');
-  }
 
   const { user } = useUser();
 
@@ -26,7 +22,12 @@ export const Header = () => {
         <Search />
       </Flex>
       <Flex flex="1" justifyContent="center">
-        <Button onClick={logout} colorScheme="red">Logout</Button>
+        <Button colorScheme="red" onClick={() => {
+          localStorage.removeItem('token')
+          navigate('/auth');
+        }}>
+          Logout
+        </Button>
       </Flex>
     </Container>
   )

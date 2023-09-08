@@ -1,0 +1,32 @@
+[
+  {
+    "type": "postfixSearch",
+    "displayName": "Postfix Search",
+    "enabled": true
+  },
+  {
+    "type": "uploadPicture",
+    "displayName": "Upload Picture",
+    "enabled": true
+  },
+  {
+    "type": "followUser",
+    "displayName": "Follow User",
+    "enabled": true
+  },
+  {
+    "type": "likePost",
+    "displayName": "Like Post",
+    "enabled": true
+  },
+  {
+    "type": "commentOnPost",
+    "displayName": "Comment On Post",
+    "enabled": true
+  },
+  {
+    "type": "searchUsers",
+    "displayName": "Search Users",
+    "enabled": true
+  }
+]

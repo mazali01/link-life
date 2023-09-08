@@ -1,12 +1,12 @@
-import { Box, Container, Spinner } from '@chakra-ui/react';
+import { Box, Container, Flex, Spinner } from '@chakra-ui/react';
 import { Feed } from '../components/Feed/Feed';
 import { NewPost } from '../components/Feed/NewPost';
-import { useFeed } from '../api/useFeed';
+import { useFeed } from '../api/user/useFeed';
 
 const FeedPage = () => {
   const { feed, isLoading } = useFeed({});
   return (
-    <Box display="flex" flexDirection="column" gap="1em" maxWidth="50%" width="50%" height="100%">
+    <Flex flexDirection="column" gap="1em" maxWidth="50%" width="50%" height="100%">
       <Container maxWidth="100%">
         <NewPost />
       </Container>
@@ -18,7 +18,7 @@ const FeedPage = () => {
           <Feed feed={feed} />
         }
       </Container>
-    </Box>
+    </Flex>
   )
 };
 

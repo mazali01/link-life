@@ -1,9 +1,9 @@
 import { Avatar, Box, Flex, Image, List, Text } from '@chakra-ui/react';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
-import { useUser } from '../api/useUser';
+import { useUser } from '../api/user/useUser';
 import { Bio } from '../components/User/Bio';
 import { Feed } from '../components/Feed/Feed';
-import { useFeed } from '../api/useFeed';
+import { useFeed } from '../api/user/useFeed';
 
 const UserPage = () => {
   const { encodedEmail } = useParams();

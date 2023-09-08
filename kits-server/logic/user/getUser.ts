@@ -2,7 +2,7 @@ import { userDal } from "../../fileDB/user";
 
 export const getUser = async (req, res) => {
   const { email } = req.query;
-  const user = await userDal.findOne({ email: email ?? req.email });
+  const user = await userDal.findOne({ email: email ?? req.payload.email });
 
   if (!user) {
     res.status(404);
