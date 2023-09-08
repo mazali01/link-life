@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useHttpClient } from "../httpClient";
 
-export type FeatureType = "postfixSearch" | "uploadPicture" | "followUser" | "likePost" | "commentOnPost" | "searchUsers";
+export type FeatureType = "suffixSearch" | "uploadPicture" | "followUser" | "likePost" | "commentOnPost" | "searchUsers";
 
 interface Feature {
   type: FeatureType;

@@ -1,7 +1,7 @@
 [
   {
-    "type": "postfixSearch",
-    "displayName": "Postfix Search",
+    "type": "suffixSearch",
+    "displayName": "Suffix Search",
     "enabled": true
   },
   {

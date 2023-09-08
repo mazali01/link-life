@@ -5,6 +5,7 @@ import { SearchMethodType, useSearch } from "../../api/user/useSearch";
 //@ts-ignore
 import { Search as ChakraSearch } from 'chakra-ui-search';
 import { useNavigate } from "react-router-dom";
+import { useUserFeatures } from "../../api/user/useUserFeatures";
 
 export const Search = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -12,6 +13,8 @@ export const Search = () => {
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
   const { users, isFetching } = useSearch({ term: debouncedSearchTerm, method: searchMethod });
   const navigate = useNavigate();
+
+  const isSuffixSearchFeatureEnabled = useUserFeatures('suffixSearch');
 
   return (
     <Box display="flex" gap="1em" width="100%">
@@ -45,7 +48,7 @@ export const Search = () => {
         value={searchMethod}
       >
         <option value="prefix">Prefix</option>
-        <option value="suffix">Suffix</option>
+        {isSuffixSearchFeatureEnabled && <option value="suffix">Suffix</option>}
         <option value="contains">Contains</option>
       </Select>
     </Box>

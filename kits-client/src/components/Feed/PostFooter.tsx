@@ -11,6 +11,7 @@ import dayjs from 'dayjs';
 import { useDeleteComment } from '../../api/user/useDeleteComment';
 import { useNavigate } from 'react-router-dom';
 import { useQueryClient } from '@tanstack/react-query';
+import { useUserFeatures } from '../../api/user/useUserFeatures';
 
 
 interface PostFooterProps {
@@ -27,6 +28,9 @@ export const PostFooter: FC<PostFooterProps> = ({ likes, comments, postId }) => 
   const [isCommentsExpanded, setIsCommentsExpanded] = React.useState(false);
   const [comment, setComment] = React.useState('');
   const queryClient = useQueryClient();
+
+  const isLikePostFeatureEnabled = useUserFeatures("likePost");
+  const isCommentOnPostFeatureEnabled = useUserFeatures("commentOnPost");
 
   const navigate = useNavigate();
 
@@ -51,14 +55,16 @@ export const PostFooter: FC<PostFooterProps> = ({ likes, comments, postId }) => 
   return (
     <Container padding="0" display="flex" flexDirection="column" alignItems="center" gap="1em" fontSize="1.25em" maxWidth="100%">
       <Container padding="0" display="flex" alignItems="center" gap="2em" maxWidth="100%">
-        <Text
-          {...iconProps}
-          backgroundColor="white"
-          onClick={withRefresh(() => updateLikes({ postId, isLike: !myLike }))}
-        >
-          {myLike ? <AiFillHeart color="red" /> : <AiOutlineHeart />}
-          {likes.length}
-        </Text>
+        {isLikePostFeatureEnabled && (
+          <Text
+            {...iconProps}
+            backgroundColor="white"
+            onClick={withRefresh(() => updateLikes({ postId, isLike: !myLike }))}
+          >
+            {myLike ? <AiFillHeart color="red" /> : <AiOutlineHeart />}
+            {likes.length}
+          </Text>
+        )}
         <Text {...iconProps}
           backgroundColor={isCommentsExpanded ? "lightgray" : "white"}
           onClick={() => setIsCommentsExpanded(true)}
@@ -68,7 +74,7 @@ export const PostFooter: FC<PostFooterProps> = ({ likes, comments, postId }) => 
         </Text>
       </Container>
 
-      <Box display="flex" gap="0.5em" width="100%" alignItems="center">
+      {isCommentOnPostFeatureEnabled && <Box display="flex" gap="0.5em" width="100%" alignItems="center">
         <Avatar size="sm" src={user?.picture} />
         <Textarea
           rows={Math.min(3, Math.ceil(comment.split('\n').length))}
@@ -90,7 +96,7 @@ export const PostFooter: FC<PostFooterProps> = ({ likes, comments, postId }) => 
           aria-label='Send'
           icon={<FiSend />}
         />
-      </Box>
+      </Box>}
 
       <Drawer placement='bottom' isOpen={isCommentsExpanded} onClose={() => setIsCommentsExpanded(false)}>
         <DrawerOverlay />

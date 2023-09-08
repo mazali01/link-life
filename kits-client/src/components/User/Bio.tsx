@@ -6,6 +6,7 @@ import { useFollow } from '../../api/user/useFollow';
 import { convertBase64 } from '../../utils/convertToBase64';
 import { useQueryClient } from '@tanstack/react-query';
 import { useUpdatePicture } from '../../api/user/useUpdatePicture';
+import { useUserFeatures } from '../../api/user/useUserFeatures';
 
 interface BioProps {
   user: User;
@@ -18,6 +19,9 @@ export const Bio: FC<BioProps> = ({ user }) => {
   const queryClient = useQueryClient();
   const { isFollowing, toggle } = useFollow(user.email);
 
+  const isUploadPictureFeatureEnabled = useUserFeatures("uploadPicture");
+  const isFollowUserFeatureEnabled = useUserFeatures("followUser");
+
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const updateProfilePicture = async (file: File) => {
@@ -29,10 +33,10 @@ export const Bio: FC<BioProps> = ({ user }) => {
   return (
     <Flex flexDirection="column" gap="1em" height="100%" width="100%">
       <Image src={user.picture || "https://exoffender.org/wp-content/uploads/2016/09/empty-profile.png"} alt="avatar" />
-      {currentUser.email !== user.email && (isFollowing ?
+      {currentUser.email !== user.email && isFollowUserFeatureEnabled && (isFollowing ?
         <Button onClick={() => toggle()} colorScheme="orange">Unfollow</Button> :
         <Button onClick={() => toggle()} colorScheme="blue">Follow</Button>)}
-      {currentUser.email === user.email &&
+      {currentUser.email === user.email && isUploadPictureFeatureEnabled &&
         <Button colorScheme="teal" display="flex" alignItems="center" onClick={() => fileInputRef.current.click()}>
           <Text>Upload Image</Text>
           <Input ref={fileInputRef} display="none" type='file' accept='image/*' onChange={e => updateProfilePicture(e.target.files[0])} />
