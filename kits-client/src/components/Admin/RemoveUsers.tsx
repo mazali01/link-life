@@ -4,11 +4,11 @@ import { BsTrash } from 'react-icons/bs';
 import { FaSearch } from 'react-icons/fa';
 import { ImArrowRight } from 'react-icons/im';
 import { useRef, useState } from 'react';
-import { User } from '../../api/user/useUser';
+import { FirstCircleUser } from '../../api/user/useUser';
 
 export const RemoveUsers = () => {
   const { users, removeUser } = useUsers();
-  const [userToRemove, setUserToRemove] = useState<User>();
+  const [userToRemove, setUserToRemove] = useState<FirstCircleUser>();
   const [term, setTerm] = useState('');
 
   const cancelRef = useRef<HTMLButtonElement>(null);

@@ -1,12 +1,12 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useHttpClient } from "../httpClient";
-import { User } from "../user/useUser";
+import { FirstCircleUser } from "../user/useUser";
 
 export const useUsers = () => {
   const httpClient = useHttpClient();
 
   const { data: users, isFetching, refetch } = useQuery(["ADMIN_USERS"], async () => {
-    const { data } = await httpClient.get<User[]>(`/api/admin/users`);
+    const { data } = await httpClient.get<FirstCircleUser[]>(`/api/admin/users`);
     return data;
   });
 

@@ -2,7 +2,7 @@ import { AxiosError } from "axios";
 import { useHttpClient } from "../httpClient";
 import { useQuery } from "@tanstack/react-query";
 
-interface FirstCircleUser {
+export interface FirstCircleUser {
   email: string
   name: string
   picture: string

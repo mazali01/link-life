@@ -2,10 +2,10 @@ import { Button, Card, Collapse, Flex, Text } from '@chakra-ui/react'
 import { useState } from 'react'
 import { RemoveUsers } from '../components/Admin/RemoveUsers';
 import { Features } from '../components/Admin/Features';
-import { Activity } from '../components/Admin/Activity';
+import { Statistics } from '../components/Admin/Statistics';
 import { useNavigate } from 'react-router-dom';
 
-type AdminAction = 'remove' | 'features' | 'activity';
+type AdminAction = 'remove' | 'features' | 'statistics';
 
 export const AdminPage = () => {
   const [selectedAction, setSelectedAction] = useState<AdminAction>();
@@ -32,7 +32,7 @@ export const AdminPage = () => {
           {[
             { action: 'remove' as const, text: 'Remove users' },
             { action: 'features' as const, text: 'Manage features' },
-            { action: 'activity' as const, text: 'View activity' },
+            { action: 'statistics' as const, text: 'View statistics' },
           ].map(({ action, text }) => (
             <Button key={action}
               padding="2em"
@@ -47,15 +47,15 @@ export const AdminPage = () => {
         </Flex>
       </Card>
       <Collapse unmountOnExit in={!!selectedAction}>
-        <Card padding="2em" height="100%" display="flex" justifyContent="center" alignItems="center">
+        <Card padding="2em" height="100%" maxWidth="100%" display="flex" justifyContent="center" alignItems="center">
           {selectedAction === 'remove' && (
             <RemoveUsers />
           )}
           {selectedAction === 'features' && (
             <Features />
           )}
-          {selectedAction === 'activity' && (
-            <Activity />
+          {selectedAction === 'statistics' && (
+            <Statistics />
           )}
         </Card>
       </Collapse>
