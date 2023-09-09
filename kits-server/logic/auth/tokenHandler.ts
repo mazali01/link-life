@@ -16,13 +16,8 @@ export const generateAdminToken = () => {
 const validateToken = (getJwtSecret) => {
   return (req, res, next) => {
     const authHeader = req.headers.authorization;
-    if (!authHeader) {
-      res.status(401);
-      res.send("Unauthorized");
-      return;
-    }
+    const token = authHeader?.split('Bearer ')?.[1];
 
-    const token = authHeader.split('Bearer ')[1];
     if (!token) {
       res.status(401);
       res.send("Unauthorized");
@@ -30,7 +25,7 @@ const validateToken = (getJwtSecret) => {
     }
 
     try {
-      req.payload = jwt.verify(token, getJwtSecret()) as any;;
+      req.payload = jwt.verify(token, getJwtSecret()) as any;
       next();
     } catch (err) {
       res.status(401);

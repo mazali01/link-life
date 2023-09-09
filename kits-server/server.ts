@@ -5,7 +5,7 @@ import userRoutes from './routes/userRoutes';
 import postRoutes from './routes/postRoutes';
 import adminRoutes from './routes/adminRoutes';
 
-const app = express();
+export const app = express();
 dotenv.config();
 
 app.get('/', (req, res) => {
@@ -21,4 +21,6 @@ app.use('/api/post', postRoutes);
 
 const PORT = process.env.PORT;
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+const server = app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+export const closeServer = () => server.close();

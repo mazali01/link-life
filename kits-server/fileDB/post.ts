@@ -1,3 +1,4 @@
+import path from 'path';
 import { Dal } from './dal';
 
 interface CommentModel {
@@ -17,10 +18,11 @@ export interface PostModel {
   comments: CommentModel[]
 }
 
+export const dbPath = path.join(__dirname, "data", "posts.json");
 
 class Post extends Dal<PostModel> {
   constructor() {
-    super("posts.json");
+    super(dbPath);
   }
 }
 

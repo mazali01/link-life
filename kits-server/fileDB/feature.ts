@@ -1,3 +1,4 @@
+import path from 'path';
 import { Dal } from './dal';
 
 export interface FeatureModel {
@@ -6,9 +7,11 @@ export interface FeatureModel {
   enabled: boolean
 }
 
+export const dbPath = path.join(__dirname, "data", "features.json");
+
 class FeatureDal extends Dal<FeatureModel> {
   constructor() {
-    super("features.json");
+    super(dbPath);
   }
 }
 

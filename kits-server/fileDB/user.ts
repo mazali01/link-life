@@ -1,3 +1,4 @@
+import path from 'path';
 import { Dal } from './dal';
 
 export interface CreateUserModel {
@@ -15,9 +16,11 @@ export interface UserModel {
   followingIds: string[]
 }
 
+export const dbPath = path.join(__dirname, "data", "users.json");
+
 class User extends Dal<UserModel> {
   constructor() {
-    super("users.json");
+    super(dbPath);
   }
 }
 

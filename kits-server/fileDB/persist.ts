@@ -15,3 +15,6 @@ export class Persist {
     await fs.writeFile(path, JSON.stringify(data, null, 2));
   }
 }
+
+const persist = new Persist();
+export default persist;
