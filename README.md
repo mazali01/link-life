@@ -6,6 +6,14 @@ Welcome to the Social Network project! This README file provides an overview of 
 
 This Social Network project consists of both a server and a client, allowing users to register, log in, post updates, follow other users, like posts, comment on posts, and more. The server handles various routes and data persistence, while the client provides a user-friendly interface for interacting with the social network.
 
+### Admin
+
+The admin user is a special user that has the ability to delete any user, toggle features and view statistics. The admin user is created when the server is started and is not visible in the client.
+
+<span style="color:red">**Note:**</span> The admin user is created with the following credentials:
+
+- **Password:** `admin`
+
 ## Server (kits-server)
 
 ### Installation and Starting the Server
