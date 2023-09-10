@@ -74,8 +74,13 @@ export const Feed: FC<FeedProps> = ({ feed }) => {
             />
           </CardFooter>
         </Card>
-      ))
-      }
+      ))}
+      {feed?.length === 0 && (
+        <Card fontSize="2em" padding="2em" fontWeight="bold" textAlign="center">
+          <Text>It looks like you don't have any posts yet.</Text>
+          <Text>Try following some people or creating a post.</Text>
+        </Card>
+      )}
     </Box>
   )
 }

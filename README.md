@@ -14,15 +14,16 @@ The admin user is a special user that has the ability to delete any user, toggle
 
 - **Password:** `admin`
 
-## Server (kits-server)
+## Server (server)
 
 ### Installation and Starting the Server
 
 To run the server:
 
-1. Navigate to the `kits-server` folder: `cd kits-server`
+1. Navigate to the `server` folder: `cd server`
 2. Install server dependencies: `npm install`
-3. Start the server: `npm start`
+3. Build the server: `npm build`
+4. Start the server: `npm start`
 
 ### Testing
 
@@ -32,7 +33,7 @@ Comprehensive tests are available in the server to ensure robust functionality. 
 npm test
 ```
 
-### Server Dependencies (kits-server/package.json)
+### Server Dependencies (server/package.json)
 
 Here are the key dependencies used in the server:
 
@@ -66,17 +67,18 @@ Here are the key dependencies used in the server:
 }
 ```
 
-## Client (kits-client)
+## Client (client)
 
 ### Installation and Starting the Client
 
 To run the client:
 
-1. Navigate to the `kits-client` folder: `cd kits-client`
+1. Navigate to the `client` folder: `cd client`
 2. Install client dependencies: `npm install`
-3. Start the client: `npm start`
+3. Build the client: `npm build`
+4. Start the client: `npm start`
 
-### Client Dependencies (kits-client/package.json)
+### Client Dependencies (client/package.json)
 
 Here are the key dependencies used in the client:
 

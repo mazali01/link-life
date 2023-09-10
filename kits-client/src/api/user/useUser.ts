@@ -22,7 +22,7 @@ export const useUser = (email?: string) => {
   const { data: user, isLoading, error } = useQuery<User, AxiosError>(['USER', email], async ({ queryKey: [_, email] }) => {
     const { data } = await httpClient.get<User>('/api/user', { params: { email } });
     return data;
-  }, { retry: false });
+  });
 
   return {
     user,
