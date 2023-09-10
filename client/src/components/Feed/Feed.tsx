@@ -32,7 +32,7 @@ export const Feed: FC<FeedProps> = ({ feed }) => {
             <Box
               cursor="pointer"
               _hover={{ textDecoration: "underline" }}
-              onClick={() => navigate(`/${btoa(post.user.email)}`)}
+              onClick={() => navigate(`/app/${btoa(post.user.email)}`)}
               width="100%"
               display="flex"
               alignItems="center"

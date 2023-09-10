@@ -51,7 +51,7 @@ export const Bio: FC<BioProps> = ({ user }) => {
         <List display="flex" flexDirection="column" gap="1em">
           {user.following.map((followed) => (
             <Box key={followed.email}
-              onClick={() => navigate(`/${btoa(followed.email)}`)}
+              onClick={() => navigate(`/app/${btoa(followed.email)}`)}
               padding="1em"
               border="1px solid gray"
               borderRadius="0.5em"

@@ -107,7 +107,7 @@ export const PostFooter: FC<PostFooterProps> = ({ likes, comments, postId }) => 
               <Box key={comment.id} display="flex" gap="0.5em">
                 <Avatar
                   cursor="pointer"
-                  onClick={() => navigate(`/${btoa(comment.user?.email)}`)}
+                  onClick={() => navigate(`/app/${btoa(comment.user?.email)}`)}
                   src={comment.user?.picture}
                 />
                 <Box backgroundColor="lightgray" padding="0.5em 1em" borderRadius="1em" display="flex" flexDirection="column">
@@ -115,7 +115,7 @@ export const PostFooter: FC<PostFooterProps> = ({ likes, comments, postId }) => 
                     <Text
                       cursor="pointer"
                       _hover={{ textDecoration: "underline" }}
-                      onClick={() => navigate(`/${btoa(comment.user?.email)}`)}
+                      onClick={() => navigate(`/app/${btoa(comment.user?.email)}`)}
                       fontWeight="bold"
                     >
                       {comment.user?.name}

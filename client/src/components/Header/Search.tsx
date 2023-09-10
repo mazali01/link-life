@@ -39,7 +39,7 @@ export const Search = () => {
               <HighlightedText text={`(${user.email})`} highlight={searchTerm} filter="brightness(0.5)" fontSize="sm" />
             </Flex>
           }
-          onResultSelect={user => navigate(`/${btoa(user.email)}`)}
+          onResultSelect={user => navigate(`/app/${btoa(user.email)}`)}
         />
       </Box>
       <Select

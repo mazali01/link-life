@@ -14,11 +14,11 @@ export const Header = () => {
   return (
     <Container backgroundColor="white" display="flex" maxWidth="100%" padding="1em" gap="1em">
       <Flex flex="1" justifyContent="space-evenly">
-        <Flex alignItems="center" gap="0.5em" cursor="pointer" onClick={() => navigate(`/${btoa(user?.email)}`)}>
+        <Flex alignItems="center" gap="0.5em" cursor="pointer" onClick={() => navigate(`/app/${btoa(user?.email)}`)}>
           <Avatar src={user?.picture} />
           <Text fontWeight="bold" fontSize="1.25em">{user?.name}</Text>
         </Flex>
-        <Image cursor="pointer" onClick={() => navigate("/")} src={logoImg} alt="logo" height="3em" borderRadius="50%" />
+        <Image cursor="pointer" onClick={() => navigate("/app")} src={logoImg} alt="logo" height="3em" borderRadius="50%" />
       </Flex>
       {isSearchUsersFeatureEnabled && (
         <Flex flex="1" justifyContent="center">

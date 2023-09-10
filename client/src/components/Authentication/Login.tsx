@@ -35,7 +35,7 @@ const Login = () => {
         isClosable: true,
         position: 'top-left'
       });
-      navigate("/", { replace: true });
+      navigate("/app", { replace: true });
     } catch (e) {
       console.log(e);
       if (e.response.status === 404) {

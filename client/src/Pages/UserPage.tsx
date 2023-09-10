@@ -14,7 +14,7 @@ const UserPage = () => {
   const { feed: likedFeed } = useFeed({ likedBy: email });
 
   if (error?.response?.status === 404) {
-    return <Navigate to="/" />;
+    return <Navigate to="/app" />;
   }
 
   return (
