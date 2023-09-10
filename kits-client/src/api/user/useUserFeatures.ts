@@ -5,7 +5,7 @@ import { FeatureType } from "../admin/useAdminFeatures";
 export const useUserFeatures = (feature: FeatureType) => {
   const httpClient = useHttpClient();
 
-  const { data: features } = useQuery(["ADMIN_FEATURES"], async () => {
+  const { data: features } = useQuery(["USER_FEATURES"], async () => {
     const { data } = await httpClient.get<Record<FeatureType, boolean>>(`/api/user/features`);
     return data;
   });
